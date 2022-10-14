@@ -7,7 +7,11 @@
 
 Upload **chat.sql** to your server / localhost (check **database_connection.php** for details).
 
-If you are going to have limited users with some passwords use http://www.passwordtool.hu/php5-password-hash-generator to hash passwords and store into table login.
+If you are going to have limited users with some passwords use 
+
+https://phppasswordhash.com/
+
+to hash passwords and store into table login.
 
 Otherwise if you are going to make **register** page as you wish use php5 function: 
 ```php
