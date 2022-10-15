@@ -36,3 +36,6 @@ Configure in
 
 database_connection.php
 
+## License
+
+MIT
