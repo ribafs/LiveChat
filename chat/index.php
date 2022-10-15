@@ -4,11 +4,18 @@ session_start();
 if(!isset($_SESSION['user_id'])){
 	header("location:login.php");
 }
+
+if ( LANG == 'en' ) {
+    require_once 'lang/en.php';
+}elseif ( LANG == 'pt' ){
+    require_once 'lang/pt.php';
+}
+
 ?>
 
 <html>  
     <head>  
-        <title>Live Chat Application 2018</title>  
+        <title>Live Chat Simple</title>  
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -28,20 +35,20 @@ if(!isset($_SESSION['user_id'])){
 	<body>  
 		<br />
 		<div class="limiter">
+		<h1 class="text-center titulo"><strong>Live Chat Simple</strong></a></h1>
 		<div class="container-table100">
 			<div class="wrap-table100">
 				
-				<h3 align="center">Live Chat Application 2018</a></h3><br />
-				<h4><p align="right">Hi - <?php echo $_SESSION['username'];  ?> - <a href="logout.php">Logout</a></p></h4>
+				<h4><p align="right"><?=HI?> - <?php echo $_SESSION['username'];  ?> - <a href="logout.php"><?=LOGOUT?></a></p></h4>
 				<div class="table100 ver3 m-b-110">
 				
 					<div class="table100-head">
 						<table>
 							<thead>
 								<tr class="row100 head">
-									<th class="cell100 column1">USERNAME</th>
-									<th class="cell100 column3">STATUS</th>
-									<th class="cell100 column4">ACTION</th>
+									<th class="cell100 column1"><?=USERNAME?></th>
+									<th class="cell100 column3"><?=STATUS?></th>
+									<th class="cell100 column4"><?=ACTION?></th>
 								</tr>
 							</thead>
 						</table>
@@ -86,13 +93,13 @@ $(document).ready(function(){
 	})
  }
 function make_chat_dialog_box(to_user_id, to_user_name) {
-	var modal_content = '<div id="user_dialog_'+to_user_id+'" class="user_dialog" style="background-color:" title="You have chat with '+to_user_name+'">';
+	var modal_content = '<div id="user_dialog_'+to_user_id+'" class="user_dialog" style="background-color:" title="<?=HAVE_CHAT?> '+to_user_name+'">';
 	modal_content += '<div style="height:400px; border:1px solid #ccc; overflow-y: scroll; margin-bottom:24px; padding:16px;" class="chat_history" data-touserid="'+to_user_id+'" id="chat_history_'+to_user_id+'">';
 	modal_content += '</div>';
 	modal_content += '<div class="form-group">';
 	modal_content += '<textarea name="chat_message_'+to_user_id+'" id="chat_message_'+to_user_id+'" class="form-control xd"></textarea>';
 	modal_content += '</div><div class="form-group" align="right">';
-	modal_content+= '<button type="button" name="send_chat" id="'+to_user_id+'" class="btn btn-info send_chat">Send</button></div></div>';
+	modal_content+= '<button type="button" name="send_chat" id="'+to_user_id+'" class="btn btn-info send_chat"><?=SEND?></button></div></div>';
 	$('#user_model_details').html(modal_content);
 }
 $(document).on('click', '.start_chat', function(){

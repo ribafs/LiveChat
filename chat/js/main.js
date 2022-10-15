@@ -1,4 +1,3 @@
-
 (function ($) {
 	"use strict";
 	$('.column100').on('mouseover',function(){
@@ -20,6 +19,4 @@
 		$(table2).find("."+column).removeClass('hov-column-'+ verTable);
 		$(table1).find(".row100.head ."+column).removeClass('hov-column-head-'+ verTable);
 	});
-    
-
 })(jQuery);

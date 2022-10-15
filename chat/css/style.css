@@ -1,3 +1,9 @@
+.titulo {
+    text-align:center;
+    position:fixed;
+    margin-top:0px;
+}
+
 .form-signin
 {
     max-width: 330px;

@@ -2,6 +2,12 @@
 include('database_connection.php');
 session_start();
 
+if ( LANG == 'en' ) {
+    require_once 'lang/en.php';
+}elseif ( LANG == 'pt' ){
+    require_once 'lang/pt.php';
+}
+
 $data = array(
  ':to_user_id'  => $_POST['to_user_id'],
  ':from_user_id'  => $_SESSION['user_id']
@@ -22,24 +28,38 @@ $statement = $connect->prepare($query);
 $statement->execute($data);
 $result = $statement->fetchAll();
 
-$output = '<ul class="list-unstyled">';
-	foreach($result as $row){
-		$user_name = '';
-	if($row["from_user_id"] == $from_user_id) {
-		$user_name = '<b class="text-success">You</b>';
-	} else {
-		$user_name = '<b class="text-danger">'.get_user_name($row['from_user_id'], $connect).'</b>';
-	}
-$output .= '
-  <li style="border-bottom:1px dotted #ccc">
-   <p>'.$user_name.' - '.$row["chat_message"].'
-    <div align="right">
-     - <small><em>'.$row['timestamp'].'</em></small>
-    </div>
-   </p>
-  </li>
-  ';
+$sql = "select * from chat_message";
+$sth = $connect->prepare($sql);
+$sth->execute();
+$countMsg = $sth->rowCount();
+
+if ( $countMsg <= 10 ) {    
+
+    $output = '<ul class="list-unstyled">';
+	    foreach($result as $row){
+		    $user_name = '';
+	    if($row["from_user_id"] == $from_user_id) {
+		    $user_name = '<b class="text-success">'.YOU.'</b>';
+	    } else {
+		    $user_name = '<b class="text-danger">'.get_user_name($row['from_user_id'], $connect).'</b>';
+	    }
+    $output .= '
+      <li style="border-bottom:1px dotted #ccc">
+       <p>'.$user_name.' - '.$row["chat_message"].'
+        <div align="right">
+         - <small><em>'.$row['timestamp'].'</em></small>
+        </div>
+       </p>
+      </li>
+      ';
+    }
+	    $output .= '</ul>';
+	    echo $output;
+}else{
+    print '<script>alert("This demo dont support more messages")</script>';
+    $sql = "delete from chat_message";
+    $sth = $connect->prepare($sql);
+    $sth->execute();
 }
-	$output .= '</ul>';
-	echo $output;
+
 ?>

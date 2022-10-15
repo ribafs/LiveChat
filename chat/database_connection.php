@@ -1,10 +1,13 @@
 <?php
-$connect = new PDO("mysql:host=localhost;dbname=chat", "root", "");
-date_default_timezone_set('Europe/Zagreb');
+$connect = new PDO("mysql:host=localhost;dbname=testes", "root", "root");
+
+date_default_timezone_set('America/Fortaleza');
+
+define ('LANG', 'pt'); // en - english, pt - portuguese
 // // // // // // // // // // // // // // // // // // //
 
 function fetch_user_last_activity($user_id, $connect){
-	$query = "SELECT * FROM login_details WHERE user_id = '$user_id' ORDER BY last_activity DESC LIMIT 1";
+	$query = "SELECT * FROM chat_login_details WHERE user_id = '$user_id' ORDER BY last_activity DESC LIMIT 1";
 	$statement = $connect->prepare($query);
 	$statement->execute();
 	$result = $statement->fetchAll();
@@ -41,7 +44,7 @@ function fetch_user_chat_history($from_user_id, $to_user_id, $connect){
 }
 
 function get_user_name($user_id, $connect){
-	$query = "SELECT username FROM login WHERE user_id = '$user_id'";
+	$query = "SELECT username FROM chat_login WHERE user_id = '$user_id'";
 	$statement = $connect->prepare($query);
 	$statement->execute();
 	$result = $statement->fetchAll();

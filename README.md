@@ -1,11 +1,19 @@
 ## Live web chat application
 
-
 ![Screenshot](https://raw.githubusercontent.com/diamond95/LiveChat/master/2.png)
 
 ## Installing
 
-Upload **chat.sql** to your server / localhost (check **database_connection.php** for details).
+- Create database
+- Import
+
+chat.sql
+
+- Configure in 
+
+database_connection.php
+
+- Access via browser the folder chat
 
 If you are going to have limited users with some passwords use 
 
@@ -17,16 +25,14 @@ Otherwise if you are going to make **register** page as you wish use php5 functi
 ```php
                      password_hash();
 ```
-### Todos
 
-Open database_connection.php 
- - Line 2: (connection to database)
-Change it using your database name, username and password. 
- - Line 3:
- ```php
-         date_default_timezone_set('Your location goes here');
-```
-Change your location using (http://php.net/manual/en/timezones.php) this link. 
+## Languages supported now
 
+en - english
 
+pt - portuguese Brazilian
+
+Configure in 
+
+database_connection.php
 

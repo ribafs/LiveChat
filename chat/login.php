@@ -9,32 +9,39 @@ if(isset($_SESSION['user_id'])) {
 
 if(isset($_POST["login"])) {
 	if(isset($_POST['username']) != "") {
-		$query = "SELECT * FROM login WHERE username = :username";
-		$statement = $connect->prepare($query);
-		$statement->execute(array(':username' => $_POST["username"]));
-		$count = $statement->rowCount();
-			if($count > 0) {
-					$result = $statement->fetchAll();
-				foreach($result as $row){
-					if(password_verify($_POST["password"], $row["password"])){
-						$_SESSION['user_id'] = $row['user_id'];
-						$_SESSION['username'] = $row['username'];
-						$sub_query = "INSERT INTO login_details (user_id) VALUES ('".$row['user_id']."')";
-						$statement = $connect->prepare($sub_query);
-						$statement->execute();
-						$_SESSION['login_details_id'] = $connect->lastInsertId();
-						header("location:index.php");
-						sleep(2); // to show gif loading icon
-					} else {
-						$message = "<label>Wrong Password</label>";
-					}
+	    $query = "SELECT * FROM chat_login WHERE username = :username";
+	    $statement = $connect->prepare($query);
+	    $statement->execute(array(':username' => $_POST["username"]));
+	    $count = $statement->rowCount();
+
+		if($count > 0) {
+			$result = $statement->fetchAll();
+			foreach($result as $row){
+				if(password_verify($_POST["password"], $row["password"])){
+					$_SESSION['user_id'] = $row['user_id'];
+					$_SESSION['username'] = $row['username'];
+					$sub_query = "INSERT INTO chat_login_details (user_id) VALUES ('".$row['user_id']."')";
+					$statement = $connect->prepare($sub_query);
+					$statement->execute();
+					$_SESSION['login_details_id'] = $connect->lastInsertId();
+					header("location:index.php");
+					sleep(2); // to show gif loading icon
+				} else {
+					$message = "<label>Wrong Password</label>";
 				}
-			} else {
-				$message = "<label>Wrong Username</labe>";
 			}
+		} else {
+			$message = "<label>Wrong Username</labe>";
+		}
 	} else {
 		$message = "<label>Enter Username</labe>";
 	}
+}
+
+if ( LANG == 'en' ) {
+    require_once 'lang/en.php';
+}elseif ( LANG == 'pt' ){
+    require_once 'lang/pt.php';
 }
 ?>
 
@@ -52,7 +59,7 @@ if(isset($_POST["login"])) {
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-6 col-md-4 col-md-offset-4">
-				<h1 class="text-center login-title font">Sign in to continue to Chat</h1>
+				<h1 class="text-center login-title font"><?=SIGNIN_STR?></h1>
 				<div class="account-wall">
 					<img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
 						alt="">
@@ -61,18 +68,19 @@ if(isset($_POST["login"])) {
 					<input type="text" name="username" class="form-control" placeholder="Username"  autofocus autocomplete="off">
 					<input type="password" class="form-control" name="password" placeholder="Password" autocomplete="off">
 					<button class="btn btn-lg btn-primary btn-block" id="login" name="login" type="submit">
-						Sign in</button>
+						<?=SIGNIN?></button>
 					
 					<label class="checkbox pull-left">
 						<input type="checkbox" value="remember-me">
-						Remember me
+						<?=REMEMBER?>
 					</label>
-					<a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+					<a href="#" class="pull-right need-help" title="TO DO"><?=NEED_HELP?> </a><span class="clearfix"></span>
 					</form>
 					<center><font size="4"><p class="text-danger font"><?php echo $message; ?></p></font></center>
 					<br />
 					<br /> 
-					<center><b>Login details:</b> <br />
+					<center><b><?=LOGIN_DETAILS?>:</b> <br />
+                    <p class="text-danger"><strong>Este demo suporta somente até 50 mensagens</strong></p>
 					username: admin <br />
 					password: admin <br />
 					--- <br />
@@ -84,7 +92,7 @@ if(isset($_POST["login"])) {
 					
 					</center>
 				</div>
-				<a href="#" class="text-center new-account">Create an account </a>
+				<a href="#" class="text-center new-account" title="TO DO"><?=CREATE_ACCOUNT?> </a>
 			</div>
 		</div>
 	</div>
