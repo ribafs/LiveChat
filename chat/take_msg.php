@@ -1,10 +1,11 @@
 <?php
-include('database_connection.php');
+include('connection.php');
+
 session_start();
 
 if ( LANG == 'en' ) {
     require_once 'lang/en.php';
-}elseif ( LANG == 'pt' ){
+}elseif ( LANG == 'pt_BR' ){
     require_once 'lang/pt.php';
 }
 
@@ -12,7 +13,9 @@ $data = array(
  ':to_user_id'  => $_POST['to_user_id'],
  ':from_user_id'  => $_SESSION['user_id']
 );
+
 $from_user_id = $_SESSION['user_id'];
+
 $to_user_id = $_POST['to_user_id'];
 ///
 // update notifications < - 
@@ -25,12 +28,17 @@ $to_user_id = $_POST['to_user_id'];
 $query = "SELECT * FROM chat_message WHERE from_user_id = :from_user_id AND to_user_id = :to_user_id OR from_user_id = :to_user_id AND to_user_id = :from_user_id ORDER BY timestamp DESC";
 
 $statement = $connect->prepare($query);
+
 $statement->execute($data);
+
 $result = $statement->fetchAll();
 
 $sql = "select * from chat_message";
+
 $sth = $connect->prepare($sql);
+
 $sth->execute();
+
 $countMsg = $sth->rowCount();
 
 if ( $countMsg <= 10 ) {    
@@ -62,4 +70,3 @@ if ( $countMsg <= 10 ) {
     $sth->execute();
 }
 
-?>

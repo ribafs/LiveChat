@@ -3,7 +3,7 @@ $connect = new PDO("mysql:host=localhost;dbname=testes", "root", "root");
 
 date_default_timezone_set('America/Fortaleza');
 
-define ('LANG', 'pt'); // en - english, pt - portuguese
+define ('LANG', 'pt_BR'); // en - english, pt_BR - portuguese brazilian
 // // // // // // // // // // // // // // // // // // //
 
 function fetch_user_last_activity($user_id, $connect){

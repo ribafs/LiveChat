@@ -1,6 +1,8 @@
 <?php
-include('database_connection.php');
+include('connection.php');
+
 session_start();
+
 $message = '';
 
 if(isset($_SESSION['user_id'])) {
@@ -40,7 +42,7 @@ if(isset($_POST["login"])) {
 
 if ( LANG == 'en' ) {
     require_once 'lang/en.php';
-}elseif ( LANG == 'pt' ){
+}elseif ( LANG == 'pt_BR' ){
     require_once 'lang/pt.php';
 }
 ?>
@@ -60,7 +62,6 @@ if ( LANG == 'en' ) {
 		<div class="row">
 			<div class="col-sm-6 col-md-4 col-md-offset-4">
 				<h1 class="text-center login-title font"><?=SIGNIN_STR?></h1>
-                <h4 class="text-center"><a href="https://github.com/ribafs/LiveChat">Download deste projeto</a></h4>
 				<div class="account-wall">
 					<img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
 						alt="">

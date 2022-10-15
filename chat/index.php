@@ -1,5 +1,5 @@
 <?php
-include('database_connection.php');
+include('connection.php');
 session_start();
 if(!isset($_SESSION['user_id'])){
 	header("location:login.php");
@@ -7,7 +7,7 @@ if(!isset($_SESSION['user_id'])){
 
 if ( LANG == 'en' ) {
     require_once 'lang/en.php';
-}elseif ( LANG == 'pt' ){
+}elseif ( LANG == 'pt_BR' ){
     require_once 'lang/pt.php';
 }
 
