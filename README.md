@@ -5,7 +5,7 @@
 ## Installing
 
 - Create database
-- Import
+- Import script below
 
 chat.sql
 
